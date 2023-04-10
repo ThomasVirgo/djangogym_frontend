@@ -5,16 +5,19 @@ import { useNavigate } from "react-router-dom"
 function LoginPage() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
     async function attemptLogin(event) {
         event.preventDefault()
+        setLoading(true)
         const data = await signIn(username, password)
         if ("token" in data) {
             navigate("/home")
         } else {
             setPassword("")
         }
+        setLoading(false)
 
     }
 
@@ -56,7 +59,7 @@ function LoginPage() {
                                 aria-label="Password"
                                 required
                             />
-                            <button type="submit" className="contrast">Login</button>
+                            <button type="submit" aria-busy={loading} className="contrast">Login</button>
                         </form>
                     </div>
                     <div><img src="https://images.unsplash.com/photo-1580261450046-d0a30080dc9b"></img></div>

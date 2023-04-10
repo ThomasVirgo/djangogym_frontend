@@ -9,5 +9,12 @@ async function signIn(username, password) {
     return data
 }
 
+function generateAuthHeaders() {
+    const token = localStorage.getItem("token")
+    return {
+        "Authorization": `Bearer ${token}`,
+    }
+}
 
-export { signIn }
+
+export { signIn, generateAuthHeaders }
