@@ -11,5 +11,22 @@ async function startNewWorkout(workoutType) {
     return data
 }
 
+async function getCurrentWorkout() {
+    const config = { "headers": generateAuthHeaders() }
+    const url = "https://djangogym.onrender.com/api/gym/session-ongoing"
+    const { data } = await axios.get(url, config)
+    if ("id" in data) {
+        const start_date = new Date(data.start_date)
+        const start_date_formatted = start_date.toDateString()
+        data.start_date = start_date_formatted
+        return data
+    }
+    return data
+}
 
-export { startNewWorkout }
+async function getWorkout(workout_session_id) {
+
+}
+
+
+export { startNewWorkout, getCurrentWorkout, getWorkout }
